@@ -1,0 +1,4 @@
+.Pledge__container {
+    border: 2px solid var(--light-gray);
+    border-radius: 0.5rem;
+}

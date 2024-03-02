@@ -11,6 +11,40 @@ a:hover {
     cursor: pointer;
 }
 
+p {
+    color: var(--dark-gray);
+}
+
+button {
+    font-family: "Commissioner", sans-serif;
+    font-size: 1rem;
+    border: none;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.std-container {
+    width: 50%;
+    background: white;
+    padding: 3rem;
+    border-radius: 0.5rem;
+    border: 2px solid hsla(0, 0%, 48%, 0.1);
+}
+
+.std-button {
+    font-weight: 700;
+    color: white;
+    border-radius: 3rem;
+    padding: 1rem 2rem;
+    background: var(--moderate-cyan);
+}
+
+.std-button:hover {
+    background: var(--dark-cyan);
+}
+
 /* nav */
 
 nav {
@@ -42,6 +76,7 @@ nav {
     left: 50%;
     bottom: -250px;
     transform: translateX(-50%);
+    z-index: 1;
 }
 
 .nav__logo, .nav__mobile-menu {
@@ -51,4 +86,150 @@ nav {
 
 .nav__mobile-menu:hover {
     cursor: pointer;
+}
+
+/* main */
+
+main {
+    width: 100%;
+    margin-top: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* header */
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 3rem;
+
+    position: relative;
+}
+
+.header__logo {
+    width: 4rem;
+    height: auto;
+    
+    position: absolute;
+    top: -2rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.header__hgroup {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+h1 {
+    font-size: 1.8rem;
+}
+
+.header__options {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header__bookmark {
+    border-radius: 10rem;
+    padding: 0;
+    background: var(--light-gray);
+
+    display: flex;
+    align-items: center;
+}
+
+.header__bookmark:hover {
+    opacity: 60%;
+}
+
+.bookmark__text {
+    font-family: "Commissioner", sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dark-gray);
+    padding: 1rem;
+}
+
+/* stat tracker  */
+
+.stat-tracker {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.stat-tracker__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.stat-tracker__single-stat-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    padding-left: 3rem;
+    border-right: 1px solid var(--dark-gray);
+}
+
+.stat-tracker__single-stat-container:first-child {
+    padding-left: 0;
+}
+
+.stat-tracker__single-stat-container:last-child {
+    border-right: none;
+}
+
+.stat-tracker__current {
+    font-size: 2rem;
+    font-weight: 700;
+    color: black;
+}
+
+.stat-tracker__progress-bar {
+    width: 100%;
+    height: 1rem;
+    border-radius: 1rem;
+    background: var(--light-gray);
+}
+
+.stat-tracker__progress-bar--inner {
+    width: calc(89914 / 100000 * 100%);
+    height: 100%;
+    background: var(--moderate-cyan);
+    border-radius: 1rem;
+}
+
+/* pledge selection container */
+
+.pledge {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.pledge__header {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.pledge__container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* footer */
+
+.attribution {
+    margin-top: 50px;
 }
