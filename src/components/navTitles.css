@@ -1,0 +1,29 @@
+.NavTitles__li {
+    color: white;
+    font-weight: 500;
+}
+
+.NavTitles__li--mobile::before {
+    content: "";
+    width: 100%;
+}
+
+.NavTitles__li--mobile {
+    color: black;
+    font-size: 1.5rem;
+    padding: 0.5rem 0;
+}
+
+.NavTitles__li--mobile::after {
+    content: "";
+    display: block;
+    width: calc(100% + 2rem);
+    margin-left: -1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid gray;
+}
+
+.NavTitles__li--mobile:last-child::after {
+    border-bottom: none;
+    padding-bottom: 0;
+}

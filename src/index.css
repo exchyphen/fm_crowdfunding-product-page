@@ -9,25 +9,28 @@
 *, *::before, *::after {
   box-sizing: inherit;
   margin: 0;
-
-  /* font */
 }
 
 html {
   box-sizing: border-box;
+
+  
+  /* font */
+  font-family: "Commissioner", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 body {
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 #root {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
+  min-width: 100%;
+  min-height: 450px;
+
+  /* background image */
+  background-image: url("./assets/images/image-hero-desktop.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
 }
