@@ -164,7 +164,11 @@ function App() {
           </hgroup>
 
           <div className="pledge__container">
-            <Pledge data={pledgeDataArr[0]}></Pledge>
+            {pledgeDataArr.map((data, index) => {
+              return index === 0 ? null : (
+                <Pledge key={`Pledge${index}`} data={data}></Pledge>
+              );
+            })}
           </div>
         </article>
       </main>

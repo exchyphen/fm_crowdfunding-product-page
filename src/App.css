@@ -13,6 +13,7 @@ a:hover {
 
 p {
     color: var(--dark-gray);
+    line-height: 1.8rem;
 }
 
 button {
