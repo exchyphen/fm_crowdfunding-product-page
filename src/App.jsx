@@ -166,10 +166,33 @@ function App() {
           <div className="pledge__container">
             {pledgeDataArr.map((data, index) => {
               return index === 0 ? null : (
-                <Pledge key={`Pledge${index}`} data={data}></Pledge>
+                <Pledge
+                  key={`Pledge${index}`}
+                  data={data}
+                  onClick={() => console.log("pledge clicked")}
+                ></Pledge>
               );
             })}
           </div>
+        </article>
+
+        <article className="std-container">
+          <form className="test">
+            <input
+              id="test1"
+              type="radio"
+              className="test-radio"
+              name="test"
+            ></input>
+            <label htmlFor="test1">checking1</label>
+            <input
+              id="test2"
+              type="radio"
+              className="test-radio"
+              name="test"
+            ></input>
+            <label htmlFor="test2">checking2</label>
+          </form>
         </article>
       </main>
 

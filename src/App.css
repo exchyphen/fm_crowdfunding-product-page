@@ -178,7 +178,7 @@ h1 {
     gap: 0.5rem;
 
     padding-left: 3rem;
-    border-right: 1px solid var(--dark-gray);
+    border-right: 1px solid var(--accent-gray);
 }
 
 .stat-tracker__single-stat-container:first-child {
@@ -234,3 +234,25 @@ h1 {
 .attribution {
     margin-top: 50px;
 }
+
+/* test */
+
+
+.test-radio {
+    appearance: none;
+
+    width: 10rem;
+    height: 10rem;
+
+    border-radius: 50%;
+
+    background: white;
+    border: 2rem solid white;
+    box-shadow: 0 0 0 1px var(--accent-gray);
+}
+
+.test-radio:checked {
+    background: var(--moderate-cyan);
+}
+
+
