@@ -14,7 +14,7 @@ const Pledge = (props) => {
   const handleCustomAmount = (numStr) => {
     let num = Number(numStr);
 
-    /* dev: deal with minPledge */
+    /* dev: deal with minPledge, general number handling */
 
     // only 2 decimals
     setCustomAmount(Math.trunc(num * 100) / 100);
@@ -75,7 +75,11 @@ const Pledge = (props) => {
                     onChange={(e) => handleCustomAmount(e.target.value)}
                   ></input>
                 </div>
-                <button className="std-button" type="submit">
+                <button
+                  className="std-button"
+                  type="submit"
+                  onClick={props.onSubmit}
+                >
                   Continue
                 </button>
               </div>

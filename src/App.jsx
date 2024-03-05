@@ -7,7 +7,9 @@ import LogoMastercraft from "./assets/images/logo-mastercraft.svg";
 import MobileMenu from "./assets/images/icon-hamburger.svg";
 import MobileMenuClose from "./assets/images/icon-close-menu.svg";
 import Bookmark from "./assets/images/icon-bookmark.svg";
+import Bookmarked from "./assets/images/icon-bookmarked.svg";
 import BackingModalClose from "./assets/images/icon-close-modal.svg";
+import IconCheck from "./assets/images/icon-check.svg";
 
 /* components */
 import NavTitles from "./components/navTitles";
@@ -17,7 +19,9 @@ function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [mobileMenuState, setMobileMenuState] = useState(false);
   const [backingModalState, setBackingModalState] = useState(false);
+  const [backingCompleteState, setBackingCompleteState] = useState(false);
   const [activePledge, setActivePledge] = useState(-1);
+  const [bookmarkState, setBookmarkState] = useState(false);
   const mobileBreakpoint = 1200;
 
   /* dev: think about disabling clicks outside when modal state is active */
@@ -66,6 +70,13 @@ function App() {
     setBackingModalState(true);
 
     setActivePledge(index);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("form submitted");
+    setBackingModalState(false);
+    setBackingCompleteState(true);
   };
 
   /* initial load */
@@ -136,14 +147,32 @@ function App() {
             >
               Back this project
             </button>
-            <button className="header__bookmark">
-              <img
-                className="bookmark__img"
-                src={Bookmark}
-                alt="bookmark img"
-              ></img>
+            <button
+              className="header__bookmark"
+              onClick={() => setBookmarkState(!bookmarkState)}
+            >
+              {bookmarkState ? (
+                <img
+                  className="bookmark__img"
+                  src={Bookmarked}
+                  alt="bookmarked img"
+                ></img>
+              ) : (
+                <img
+                  className="bookmark__img"
+                  src={Bookmark}
+                  alt="bookmark img"
+                ></img>
+              )}
               {windowWidth > mobileBreakpoint ? (
-                <p className="bookmark__text">Bookmark</p>
+                <p
+                  className={
+                    "bookmark__text" +
+                    (bookmarkState ? " bookmark__text--active" : "")
+                  }
+                >
+                  {bookmarkState ? "Bookmarked" : "Bookmark"}
+                </p>
               ) : null}
             </button>
           </div>
@@ -226,10 +255,35 @@ function App() {
                   onClick={() => handleModalButtons(index)}
                   modal={true}
                   active={activePledge === index}
+                  onSubmit={handleSubmit}
                 ></Pledge>
               );
             })}
           </form>
+        ) : null}
+
+        {backingCompleteState ? (
+          <div className="backing-modal complete">
+            <img
+              className="complete__icon-check"
+              src={IconCheck}
+              alt="icon check mark"
+            ></img>
+            <hgroup className="complete__hgroup">
+              <h2>Thanks for your support!</h2>
+              <p>
+                Your pledge brings us one step closer to sharing Mastercraft
+                Bamboo Monitor Riser worldwide. You will get an email once our
+                campaign is completed.
+              </p>
+            </hgroup>
+            <button
+              className="std-button"
+              onClick={() => setBackingCompleteState(false)}
+            >
+              Got it!
+            </button>
+          </div>
         ) : null}
       </main>
 
