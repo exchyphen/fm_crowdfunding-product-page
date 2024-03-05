@@ -59,6 +59,10 @@
     padding: 2rem 0;
 }
 
+.Pledge__container--modal-active {
+    border: 2px solid var(--moderate-cyan);
+}
+
 .Pledge__label {
     display: flex;
     flex-direction: column;
@@ -75,6 +79,14 @@
 .Pledge__title-container--modal {
     justify-content: flex-start;
     gap: 2rem;
+}
+
+.Pledge__title-container--modal:hover {
+    cursor: pointer;
+}
+
+.Pledge__title-container--modal:hover .Pledge__title {
+    color: var(--moderate-cyan);
 }
 
 .Pledge__reward--modal {
@@ -107,13 +119,46 @@
 .Pledge__enter-amount-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 2rem;
     padding-bottom: 0;
 
-    border-top: 2px solid var(--accent-gray);
+    border-top: 2px solid var(--light-gray);
+    position: relative;
 }
 
 .Pledge__submit-container {
     display: flex;
     gap: 1rem;
+}
+
+.Pledge__custom-amount-container {
+    height: 100%;
+    position: relative;
+}
+
+.Pledge__custom-amount {
+    width: 120px;
+    height: 100%;
+    border-radius: 20rem;
+    border: 1px solid var(--accent-gray);
+    padding: 1rem 2rem;
+
+    font-family: "Commissioner", sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: end;
+}
+
+.Pledge__custom-amount:focus {
+    outline: 1px solid var(--moderate-cyan);
+}
+
+.Pledge__custom-amount--sign {
+    font-weight: 700;
+    color: var(--accent-gray);
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
 }

@@ -16,7 +16,8 @@ import Pledge from "./components/pledge";
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [mobileMenuState, setMobileMenuState] = useState(false);
-  const [backingModalState, setBackingModalState] = useState(true);
+  const [backingModalState, setBackingModalState] = useState(false);
+  const [activePledge, setActivePledge] = useState(-1);
   const mobileBreakpoint = 1200;
 
   /* dev: think about disabling clicks outside when modal state is active */
@@ -64,7 +65,7 @@ function App() {
 
     setBackingModalState(true);
 
-    /* dev: based on index, pre-select the given pledge */
+    setActivePledge(index);
   };
 
   /* initial load */
@@ -190,8 +191,9 @@ function App() {
               return index === 0 ? null : (
                 <Pledge
                   key={`Pledge${index}`}
+                  index={index}
                   data={data}
-                  onClick={handleModalButtons}
+                  onClick={() => handleModalButtons(index)}
                   modal={false}
                 ></Pledge>
               );
@@ -219,9 +221,11 @@ function App() {
               return (
                 <Pledge
                   key={`PledgeModal${index}`}
+                  index={index}
                   data={data}
-                  onClick={handleModalButtons}
+                  onClick={() => handleModalButtons(index)}
                   modal={true}
+                  active={activePledge === index}
                 ></Pledge>
               );
             })}

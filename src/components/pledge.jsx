@@ -1,14 +1,32 @@
+import { useState } from "react";
 import "./pledge.css";
 
 const Pledge = (props) => {
   const data = props.data;
+  const [customAmount, setCustomAmount] = useState(data.minPledge);
+
+  const blockInvalidChar_Integer = (e) => {
+    if (["e", "E", "+", "-"].includes(e.key)) {
+      e.preventDefault();
+    }
+  };
+
+  const handleCustomAmount = (numStr) => {
+    let num = Number(numStr);
+
+    /* dev: deal with minPledge */
+
+    // only 2 decimals
+    setCustomAmount(Math.trunc(num * 100) / 100);
+  };
 
   return (
     <section
       className={
         "Pledge__container" +
         (data.remaining === 0 ? " Pledge__container--oos" : "") +
-        (props.modal ? " Pledge__container--modal" : "")
+        (props.modal ? " Pledge__container--modal" : "") +
+        (props.active ? " Pledge__container--modal-active" : "")
       }
     >
       {props.modal ? (
@@ -21,6 +39,9 @@ const Pledge = (props) => {
                 type="radio"
                 name="pledge"
                 disabled={data.remaining === 0 ? "disabled" : ""}
+                checked={props.active ? "checked" : ""}
+                readOnly
+                onClick={() => props.onClick()}
               ></input>
               <h3 className="Pledge__title">{data.title}</h3>
               {data.remaining >= 0 ? (
@@ -40,15 +61,26 @@ const Pledge = (props) => {
           </div>
 
           <p className="Pledge__description--modal">{data.description}</p>
-          <div className="Pledge__enter-amount-container">
-            <p>Enter your pledge</p>
-            <div className="Pledge__submit-container">
-              <input type="text"></input>
-              <button className="std-button" type="submit">
-                Continue
-              </button>
+          {props.active ? (
+            <div className="Pledge__enter-amount-container">
+              <p>Enter your pledge</p>
+              <div className="Pledge__submit-container">
+                <div className="Pledge__custom-amount-container">
+                  <p className="Pledge__custom-amount--sign">$</p>
+                  <input
+                    type="number"
+                    className="Pledge__custom-amount"
+                    value={customAmount}
+                    onKeyDown={blockInvalidChar_Integer}
+                    onChange={(e) => handleCustomAmount(e.target.value)}
+                  ></input>
+                </div>
+                <button className="std-button" type="submit">
+                  Continue
+                </button>
+              </div>
             </div>
-          </div>
+          ) : null}
         </label>
       ) : (
         <hgroup className="Pledge__title-container">
@@ -70,6 +102,7 @@ const Pledge = (props) => {
             className={
               "std-button" + (data.remaining === 0 ? " button--oos" : "")
             }
+            onClick={() => props.onClick()}
           >
             {data.remaining === 0 ? "Out of stock" : "Select Reward"}
           </button>
