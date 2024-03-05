@@ -7,6 +7,7 @@ import LogoMastercraft from "./assets/images/logo-mastercraft.svg";
 import MobileMenu from "./assets/images/icon-hamburger.svg";
 import MobileMenuClose from "./assets/images/icon-close-menu.svg";
 import Bookmark from "./assets/images/icon-bookmark.svg";
+import BackingModalClose from "./assets/images/icon-close-modal.svg";
 
 /* components */
 import NavTitles from "./components/navTitles";
@@ -15,7 +16,11 @@ import Pledge from "./components/pledge";
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [mobileMenuState, setMobileMenuState] = useState(false);
+  const [backingModalState, setBackingModalState] = useState(true);
   const mobileBreakpoint = 1200;
+
+  /* dev: think about disabling clicks outside when modal state is active */
+  const [disableBackgroundClick, setDisableBackgroundClick] = useState(false);
 
   /* data arrays */
   const navTitlesArr = ["About", "Discover", "Get Started"];
@@ -49,6 +54,18 @@ function App() {
       remaining: 0,
     },
   ];
+
+  /* event handlers */
+  const handleModalButtons = (index) => {
+    if (index < 0) {
+      setBackingModalState(false);
+      return;
+    }
+
+    setBackingModalState(true);
+
+    /* dev: based on index, pre-select the given pledge */
+  };
 
   /* initial load */
   useEffect(() => {
@@ -112,7 +129,12 @@ function App() {
             </p>
           </hgroup>
           <div className="header__options">
-            <button className="std-button">Back this project</button>
+            <button
+              className="std-button"
+              onClick={() => handleModalButtons(0)}
+            >
+              Back this project
+            </button>
             <button className="header__bookmark">
               <img
                 className="bookmark__img"
@@ -169,31 +191,42 @@ function App() {
                 <Pledge
                   key={`Pledge${index}`}
                   data={data}
-                  onClick={() => console.log("pledge clicked")}
+                  onClick={handleModalButtons}
+                  modal={false}
                 ></Pledge>
               );
             })}
           </div>
         </article>
 
-        <article className="std-container">
-          <form className="test">
-            <input
-              id="test1"
-              type="radio"
-              className="test-radio"
-              name="test"
-            ></input>
-            <label htmlFor="test1">checking1</label>
-            <input
-              id="test2"
-              type="radio"
-              className="test-radio"
-              name="test"
-            ></input>
-            <label htmlFor="test2">checking2</label>
+        {backingModalState ? (
+          <form className="backing-modal">
+            <img
+              className="backing-modal__close"
+              src={BackingModalClose}
+              alt="close icon"
+              onClick={() => handleModalButtons(-1)}
+            ></img>
+            <hgroup className="backing-modal__hgroup">
+              <h2>Back this project</h2>
+              <p>
+                Want to support us in bringing Mastercraft Bamboo Monitor Riser
+                out in the world?
+              </p>
+            </hgroup>
+
+            {pledgeDataArr.map((data, index) => {
+              return (
+                <Pledge
+                  key={`PledgeModal${index}`}
+                  data={data}
+                  onClick={handleModalButtons}
+                  modal={true}
+                ></Pledge>
+              );
+            })}
           </form>
-        </article>
+        ) : null}
       </main>
 
       <footer className="attribution">

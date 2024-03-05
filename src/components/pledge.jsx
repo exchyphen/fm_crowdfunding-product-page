@@ -7,29 +7,74 @@ const Pledge = (props) => {
     <section
       className={
         "Pledge__container" +
-        (data.remaining === 0 ? " Pledge__container--oos" : "")
+        (data.remaining === 0 ? " Pledge__container--oos" : "") +
+        (props.modal ? " Pledge__container--modal" : "")
       }
     >
-      <hgroup className="Pledge__title-container">
-        <h3 className="Pledge__title">{data.title}</h3>
-        <p className="Pledge__money-breakpoint">
-          Pledge ${data.minPledge} or more
-        </p>
-      </hgroup>
-      <p>{data.description}</p>
-      <div className="Pledge__reward">
-        <div className="Pledge__reward--remaining-container">
-          <p className="Pledge__reward--remaining">{data.remaining}</p>
-          <p>left</p>
+      {props.modal ? (
+        <label className="Pledge__label" htmlFor={props.title}>
+          <div className="Pledge__content-container">
+            <hgroup className="Pledge__title-container Pledge__title-container--modal">
+              <input
+                id={props.title}
+                className="Pledge__radio"
+                type="radio"
+                name="pledge"
+                disabled={data.remaining === 0 ? "disabled" : ""}
+              ></input>
+              <h3 className="Pledge__title">{data.title}</h3>
+              {data.remaining >= 0 ? (
+                <p className="Pledge__money-breakpoint">
+                  Pledge ${data.minPledge} or more
+                </p>
+              ) : null}
+            </hgroup>
+            {data.remaining >= 0 ? (
+              <div className="Pledge__reward--remaining-container">
+                <p className="Pledge__reward--remaining Pledge__reward--modal">
+                  {data.remaining}
+                </p>
+                <p>left</p>
+              </div>
+            ) : null}
+          </div>
+
+          <p className="Pledge__description--modal">{data.description}</p>
+          <div className="Pledge__enter-amount-container">
+            <p>Enter your pledge</p>
+            <div className="Pledge__submit-container">
+              <input type="text"></input>
+              <button className="std-button" type="submit">
+                Continue
+              </button>
+            </div>
+          </div>
+        </label>
+      ) : (
+        <hgroup className="Pledge__title-container">
+          <h3 className="Pledge__title">{data.title}</h3>
+          <p className="Pledge__money-breakpoint">
+            Pledge ${data.minPledge} or more
+          </p>
+        </hgroup>
+      )}
+      {props.modal ? null : <p>{data.description}</p>}
+
+      {props.modal ? null : (
+        <div className="Pledge__reward">
+          <div className="Pledge__reward--remaining-container">
+            <p className="Pledge__reward--remaining">{data.remaining}</p>
+            <p>left</p>
+          </div>
+          <button
+            className={
+              "std-button" + (data.remaining === 0 ? " button--oos" : "")
+            }
+          >
+            {data.remaining === 0 ? "Out of stock" : "Select Reward"}
+          </button>
         </div>
-        <button
-          className={
-            "std-button" + (data.remaining === 0 ? " button--oos" : "")
-          }
-        >
-          {data.remaining === 0 ? "Out of stock" : "Select Reward"}
-        </button>
-      </div>
+      )}
     </section>
   );
 };
