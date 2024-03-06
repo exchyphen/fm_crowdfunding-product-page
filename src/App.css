@@ -28,6 +28,7 @@ button:hover {
 
 .std-container {
     width: 50%;
+    min-width: 700px;
     background: white;
     padding: 3rem;
     border-radius: 0.5rem;
@@ -236,6 +237,7 @@ h1 {
 /* backing modal */
 .backing-modal {
     width: 50%;
+    min-width: 700px;
     background: white;
     border-radius: 0.5rem;
     padding: 2rem 4rem;
@@ -259,7 +261,7 @@ h1 {
     
     position: absolute;
     top: 2rem;
-    right: 2rem;
+   right: 2rem;
 }
 
 .backing-modal__close:hover {
@@ -294,4 +296,65 @@ h1 {
 
 .attribution {
     margin-top: 50px;
+    padding-bottom: 2rem;
+}
+
+/* media query: mobile */
+
+@media screen and (max-width: 800px) {
+    .std-container {
+        min-width: 350px;
+        width: 90%;
+        padding: 3rem 1rem;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .stat-tracker__container {
+        grid-template-columns: auto;
+        grid-template-rows: repeat(3, 1fr);
+        grid-gap: 1rem;
+        text-align: center;
+    }
+
+    .stat-tracker__single-stat-container {
+        padding-left: 0;
+        border-right: none;
+        padding-top: 1rem;
+        position: relative;
+    }
+
+    .stat-tracker__single-stat-container::before {
+        content: "";
+        width: 100px;
+        height: 1px;
+        position: absolute;
+        background: var(--accent-gray);
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .stat-tracker__single-stat-container:first-child::before {
+        height: 0;
+    }
+
+    .stat-tracker__single-stat-container:first-child {
+        border-top: none;
+        padding-top: 0;
+    }
+
+    /* modal */
+    .backing-modal {
+        min-width: 350px;
+        width: 90%;
+        padding: 2rem 1rem;
+
+        position: absolute;
+        top: 200px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }

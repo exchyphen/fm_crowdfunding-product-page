@@ -22,7 +22,7 @@ function App() {
   const [backingCompleteState, setBackingCompleteState] = useState(false);
   const [activePledge, setActivePledge] = useState(-1);
   const [bookmarkState, setBookmarkState] = useState(false);
-  const mobileBreakpoint = 1200;
+  const mobileBreakpoint = 800;
 
   /* dev: think about disabling clicks outside when modal state is active */
   const [disableBackgroundClick, setDisableBackgroundClick] = useState(false);
@@ -74,7 +74,7 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("form submitted");
+
     setBackingModalState(false);
     setBackingCompleteState(true);
   };
@@ -256,6 +256,7 @@ function App() {
                   modal={true}
                   active={activePledge === index}
                   onSubmit={handleSubmit}
+                  mobile={windowWidth <= mobileBreakpoint}
                 ></Pledge>
               );
             })}

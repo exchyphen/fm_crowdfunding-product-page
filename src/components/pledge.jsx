@@ -43,14 +43,16 @@ const Pledge = (props) => {
                 readOnly
                 onClick={() => props.onClick()}
               ></input>
-              <h3 className="Pledge__title">{data.title}</h3>
-              {data.remaining >= 0 ? (
-                <p className="Pledge__money-breakpoint">
-                  Pledge ${data.minPledge} or more
-                </p>
-              ) : null}
+              <div className="Pledge__title-container--header">
+                <h3 className="Pledge__title">{data.title}</h3>
+                {data.remaining >= 0 ? (
+                  <p className="Pledge__money-breakpoint">
+                    Pledge ${data.minPledge} or more
+                  </p>
+                ) : null}
+              </div>
             </hgroup>
-            {data.remaining >= 0 ? (
+            {data.remaining >= 0 && !props.mobile ? (
               <div className="Pledge__reward--remaining-container">
                 <p className="Pledge__reward--remaining Pledge__reward--modal">
                   {data.remaining}
@@ -61,6 +63,16 @@ const Pledge = (props) => {
           </div>
 
           <p className="Pledge__description--modal">{data.description}</p>
+
+          {data.remaining >= 0 && props.mobile ? (
+            <div className="Pledge__reward--remaining-container">
+              <p className="Pledge__reward--remaining Pledge__reward--modal">
+                {data.remaining}
+              </p>
+              <p>left</p>
+            </div>
+          ) : null}
+
           {props.active ? (
             <div className="Pledge__enter-amount-container">
               <p>Enter your pledge</p>
