@@ -4,9 +4,10 @@ import "./pledge.css";
 const Pledge = (props) => {
   const data = props.data;
   const [customAmount, setCustomAmount] = useState(data.minPledge);
+  const [errorState, setErrorState] = useState(false);
 
   const blockInvalidChar_Integer = (e) => {
-    if (["e", "E", "+", "-"].includes(e.key)) {
+    if (["e", "E", "+", "-", "."].includes(e.key)) {
       e.preventDefault();
     }
   };
@@ -14,10 +15,20 @@ const Pledge = (props) => {
   const handleCustomAmount = (numStr) => {
     let num = Number(numStr);
 
-    /* dev: deal with minPledge, general number handling */
+    setCustomAmount(Math.trunc(num));
+  };
 
-    // only 2 decimals
-    setCustomAmount(Math.trunc(num * 100) / 100);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // check for minPledge
+    if (customAmount <= 0 || customAmount < data.minPledge) {
+      setErrorState(true);
+      return;
+    }
+    setErrorState(false);
+
+    props.onSubmit(customAmount, props.index);
   };
 
   return (
@@ -75,7 +86,12 @@ const Pledge = (props) => {
 
           {props.active ? (
             <div className="Pledge__enter-amount-container">
-              <p>Enter your pledge</p>
+              <div className="Pledge__text-wrapper">
+                <p>Enter your pledge</p>
+                {errorState ? (
+                  <p className="error-message">Pledge too low</p>
+                ) : null}
+              </div>
               <div className="Pledge__submit-container">
                 <div className="Pledge__custom-amount-container">
                   <p className="Pledge__custom-amount--sign">$</p>
@@ -90,7 +106,7 @@ const Pledge = (props) => {
                 <button
                   className="std-button"
                   type="submit"
-                  onClick={props.onSubmit}
+                  onClick={handleSubmit}
                 >
                   Continue
                 </button>
@@ -118,7 +134,7 @@ const Pledge = (props) => {
             className={
               "std-button" + (data.remaining === 0 ? " button--oos" : "")
             }
-            onClick={() => props.onClick()}
+            onClick={data.remaining > 0 ? () => props.onClick() : () => {}}
           >
             {data.remaining === 0 ? "Out of stock" : "Select Reward"}
           </button>

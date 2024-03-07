@@ -52,13 +52,11 @@ Users should be able to:
 ### What I learned
 
 Practice with modals, practice with BEM and CSS classes/structure.
+Connecting various pieces of data and having a controlling component - in this case connecting the pledge amount, number of backers, stock remaining.
 
 ### Continued development
 
-The numbers in the Pledge inputs currently do not handle the number content correctly. (Can put in less than min pledge, etc).
 When a modal is active, ensure all elements in the background are inactive/non-clickable.
-Have the default page react to the pledge given (increment numbers).
-
 Would like to restructure and rename CSS classes for clarity.
 
 ## Author

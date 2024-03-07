@@ -26,6 +26,10 @@ button:hover {
     cursor: pointer;
 }
 
+input {
+    caret-color: var(--moderate-cyan);
+}
+
 .std-container {
     width: 50%;
     min-width: 700px;

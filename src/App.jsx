@@ -16,12 +16,30 @@ import NavTitles from "./components/navTitles";
 import Pledge from "./components/pledge";
 
 function App() {
+  /* number formatters */
+  const USDFormatter = (num) => {
+    return Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    }).format(num);
+  };
+
+  const generalNumFormatter = (num) => {
+    return Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(num);
+  };
+
+  /* useState */
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [mobileMenuState, setMobileMenuState] = useState(false);
   const [backingModalState, setBackingModalState] = useState(false);
   const [backingCompleteState, setBackingCompleteState] = useState(false);
   const [activePledge, setActivePledge] = useState(-1);
   const [bookmarkState, setBookmarkState] = useState(false);
+  const [totalBackers, setTotalBackers] = useState(5007);
+  const [totalMoney, setTotalMoney] = useState(89914);
+  const [pledgeReward1, setPledgeReward1] = useState(101);
+  const [pledgeReward2, setPledgeReward2] = useState(64);
   const mobileBreakpoint = 800;
 
   /* dev: think about disabling clicks outside when modal state is active */
@@ -42,14 +60,14 @@ function App() {
       description:
         "You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and you’ll be added to a special Backer member list.",
       minPledge: 25,
-      remaining: 101,
+      remaining: pledgeReward1,
     },
     {
       title: "Black Edition Stand",
       description:
         "You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer member list. Shipping is included.",
       minPledge: 75,
-      remaining: 64,
+      remaining: pledgeReward2,
     },
     {
       title: "Mahogany Special Edition",
@@ -72,11 +90,21 @@ function App() {
     setActivePledge(index);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const handleSubmit = (pledgeAmount, pledgeRewardNum) => {
     setBackingModalState(false);
     setBackingCompleteState(true);
+
+    // increment total backers
+    setTotalBackers(totalBackers + 1);
+    // add amount to total backed
+    setTotalMoney(totalMoney + pledgeAmount);
+
+    // decrement pledge reward
+    if (pledgeRewardNum === 1) {
+      setPledgeReward1(pledgeReward1 - 1);
+    } else {
+      setPledgeReward2(pledgeReward2 - 1);
+    }
   };
 
   /* initial load */
@@ -181,11 +209,15 @@ function App() {
         <article className="std-container stat-tracker">
           <div className="stat-tracker__container">
             <div className="stat-tracker__single-stat-container">
-              <p className="stat-tracker__current">$89,914</p>
+              <p className="stat-tracker__current">
+                {USDFormatter(totalMoney)}
+              </p>
               <p>of $100,000 backed</p>
             </div>
             <div className="stat-tracker__single-stat-container">
-              <p className="stat-tracker__current">5,007</p>
+              <p className="stat-tracker__current">
+                {generalNumFormatter(totalBackers)}
+              </p>
               <p>total backers</p>
             </div>
             <div className="stat-tracker__single-stat-container">
@@ -194,7 +226,16 @@ function App() {
             </div>
           </div>
           <div className="stat-tracker__progress-bar">
-            <div className="stat-tracker__progress-bar--inner"></div>
+            <div
+              className="stat-tracker__progress-bar--inner"
+              style={{
+                width: `${
+                  totalMoney >= 100000
+                    ? "100%"
+                    : `calc(${totalMoney} / 100000 * 100%)`
+                }`,
+              }}
+            ></div>
           </div>
         </article>
 
